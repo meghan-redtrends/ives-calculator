@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/L0ucUv19hqLW90cXKxFb/media/6a501d333a44372f4564a29a.png">
 <title>IVES Savings Calculator | Red Trends Technologies</title>
 <style>
   * { box-sizing: border-box; }
@@ -95,25 +96,9 @@
   .cta-section { text-align: center; padding: 28px 40px 6px 40px; }
   .cta-note { font-size: 12px; color: #888888; margin-top: 14px; }
 
-  .email-capture {
-    margin: 22px 40px 6px 40px; padding: 18px 20px; background: #fafafa; border: 1px dashed #dddddd;
-    border-radius: 8px; text-align: center;
-  }
-  .email-capture-label { font-size: 12.5px; color: #666666; margin-bottom: 10px; }
-  .email-row { display: flex; gap: 8px; }
-  .email-row input[type="email"] {
-    flex: 1; padding: 12px 14px; border: 2px solid #e8e8e8; border-radius: 6px; font-size: 13.5px; font-family: inherit;
-  }
-  .email-row input[type="email"]:focus { outline: none; border-color: #C30A21; }
-  .email-row button {
-    background: #14110F; color: #ffffff; border: none; border-radius: 6px; padding: 0 18px;
-    font-family: inherit; font-weight: 700; font-size: 13px; cursor: pointer;
-  }
-  .email-success { display: none; color: #C30A21; font-size: 12.5px; font-weight: 700; margin-top: 8px; }
-
   .back-link {
     display: block; text-align: center; font-size: 12.5px; color: #999999; text-decoration: none;
-    padding: 18px 40px 4px 40px;
+    padding: 18px 40px 4px 40px; cursor: pointer;
   }
   .back-link:hover { color: #C30A21; }
 
@@ -129,9 +114,8 @@
 
   @media (max-width: 480px) {
     .header, .form-section, .cta-section, .footer, .back-link, .bookmark-note { padding-left: 22px; padding-right: 22px; }
-    .diagnosis, .solution-box, .email-capture, .stat-row { margin-left: 22px; margin-right: 22px; padding-left: 20px; padding-right: 20px; }
+    .diagnosis, .solution-box, .stat-row { margin-left: 22px; margin-right: 22px; padding-left: 20px; padding-right: 20px; }
     .stat-row { padding-left: 22px; padding-right: 22px; }
-    .email-row { flex-direction: column; }
   }
 </style>
 </head>
@@ -213,15 +197,6 @@
       <div class="cta-section">
         <a class="primary-btn" style="text-decoration:none; display:inline-block; width:auto; padding-left:34px; padding-right:34px;" href="https://meghan-redtrends.github.io/Meghan-Discovery-Call/" target="_blank">Book 15 Minutes To Confirm This &rarr;</a>
         <div class="cta-note">No pitch, just a real comparison against what you're running now.</div>
-      </div>
-
-      <div class="email-capture">
-        <div class="email-capture-label">Not ready to book? We'll email you this breakdown to keep.</div>
-        <div class="email-row">
-          <input type="email" id="emailInput" placeholder="you@company.com">
-          <button onclick="captureEmail()">Send It</button>
-        </div>
-        <div class="email-success" id="emailSuccess">Sent! Check your inbox.</div>
       </div>
 
       <a class="back-link" onclick="showCalc()">&larr; Run different numbers</a>
@@ -311,15 +286,6 @@
     document.getElementById('dot1').classList.add('active');
     document.getElementById('progressLabel').textContent = 'Step 1 of 2';
     window.scrollTo(0, 0);
-  }
-
-  function captureEmail() {
-    var email = document.getElementById('emailInput').value;
-    if (email && email.includes('@')) {
-      // In production, this posts to the email/CRM system instead of just showing a message.
-      document.getElementById('emailSuccess').style.display = 'block';
-      document.getElementById('emailInput').value = '';
-    }
   }
 </script>
 
