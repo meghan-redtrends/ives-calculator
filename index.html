@@ -5,125 +5,123 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/L0ucUv19hqLW90cXKxFb/media/6a501d333a44372f4564a29a.png">
 <title>IVES Savings Calculator | Red Trends Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  :root { --red:#C30A21; --red-dark:#93061A; --red-soft:#FBE9EC; --ink:#14110F; --muted:#666; --line:#eee; }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: 'Poppins', Arial, Helvetica, sans-serif;
-    background: #f2f2f2;
-    color: #14110F;
-  }
-  .wrap { max-width: 640px; margin: 0 auto; padding: 36px 18px 60px 18px; }
-  .card { background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,0.09); }
-  .top-bar { height: 6px; background: #C30A21; }
+  body { margin:0; font-family:'Poppins', Arial, Helvetica, sans-serif; background:#f2f2f2; color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:640px; margin:0 auto; padding:28px 16px 56px; }
+  .card { background:#fff; border-radius:16px; overflow:hidden; box-shadow:0 10px 34px rgba(0,0,0,.10); }
 
-  .progress { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 20px 20px 0 20px; }
-  .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: #eaeaea; transition: background 0.3s; }
-  .progress-dot.active { background: #C30A21; width: 22px; border-radius: 5px; }
-  .progress-label { font-size: 11px; color: #999999; margin-left: 8px; letter-spacing: 0.3px; }
+  /* hero band */
+  .hero { background:linear-gradient(135deg,#1c1412 0%,#14110F 55%,#2a0d12 100%); color:#fff; padding:26px 36px 28px; text-align:center; position:relative; }
+  .hero:before { content:""; position:absolute; left:0; right:0; top:0; height:5px; background:var(--red); }
+  .new-pill { display:inline-block; background:var(--red); color:#fff; font-weight:700; font-size:11px; letter-spacing:1.2px; text-transform:uppercase; padding:6px 14px; border-radius:20px; margin-bottom:14px; }
+  .hero h1 { font-size:25px; line-height:1.25; margin:0 0 10px; font-weight:700; }
+  .hero h1 span { color:#FF6B7E; }
+  .hero p { font-size:14px; color:#d6d1ce; line-height:1.55; margin:0 auto; max-width:470px; }
 
-  .header { padding: 22px 40px 16px 40px; text-align: center; }
-  .eyebrow {
-    display: inline-block; background: #FBE9EC; color: #C30A21;
-    font-weight: 700; font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase;
-    padding: 7px 16px; border-radius: 20px; margin-bottom: 16px;
-  }
-  h1 { font-size: 24px; line-height: 1.28; margin: 0 0 10px 0; }
-  h1 span { color: #C30A21; }
-  .subtext { font-size: 14px; color: #666666; line-height: 1.55; max-width: 460px; margin: 0 auto; }
+  .progress { display:flex; align-items:center; justify-content:center; gap:8px; padding:18px 20px 0; }
+  .progress-dot { width:8px; height:8px; border-radius:50%; background:#e6e6e6; transition:all .3s; }
+  .progress-dot.active { background:var(--red); width:22px; border-radius:5px; }
+  .progress-label { font-size:11px; color:#999; margin-left:8px; letter-spacing:.3px; }
 
-  .form-section { padding: 8px 40px 6px 40px; }
-  .field { margin-bottom: 26px; }
-  label { display: block; font-size: 13.5px; font-weight: 700; color: #14110F; margin-bottom: 10px; }
-  label .val { color: #C30A21; font-weight: 700; }
+  .form-section { padding:18px 36px 8px; }
+  .field { margin-bottom:24px; }
+  label, .lbl { display:flex; justify-content:space-between; align-items:baseline; font-size:13.5px; font-weight:600; margin-bottom:10px; }
+  .val { color:var(--red); font-weight:700; font-size:16px; }
 
-  .input-wrap { position: relative; }
-  .input-wrap .prefix { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #888888; font-size: 16px; font-weight: 600; }
-  input[type="number"] {
-    width: 100%; padding: 15px 16px 15px 34px; font-size: 17px;
-    border: 2px solid #e8e8e8; border-radius: 8px; font-family: inherit; color: #14110F;
-  }
-  input[type="number"]:focus { outline: none; border-color: #C30A21; }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .chip { border:1.5px solid #e4e4e4; background:#fff; color:#444; font:inherit; font-size:12.5px; font-weight:600; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s; }
+  .chip:hover { border-color:var(--red); color:var(--red); }
+  .chip.on { background:var(--red); border-color:var(--red); color:#fff; }
 
-  input[type="range"] {
-    width: 100%; height: 6px; border-radius: 4px; background: #eeeeee;
-    accent-color: #C30A21; -webkit-appearance: none;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
-    background: #C30A21; cursor: pointer; box-shadow: 0 2px 6px rgba(195,10,33,0.4);
-  }
-  .range-labels { display: flex; justify-content: space-between; font-size: 11px; color: #aaaaaa; margin-top: 6px; }
+  .input-wrap { position:relative; }
+  .input-wrap .prefix { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:#888; font-size:16px; font-weight:600; }
+  input[type="number"] { width:100%; padding:14px 16px 14px 34px; font:inherit; font-size:17px; border:2px solid #e8e8e8; border-radius:10px; color:var(--ink); }
+  input[type="number"]:focus { outline:none; border-color:var(--red); }
+  .hint { font-size:11.5px; color:#999; margin-top:7px; }
 
-  .primary-btn {
-    display: block; width: 100%; text-align: center; border: none; cursor: pointer;
-    background: linear-gradient(180deg, #E43A50 0%, #B8081D 55%, #93061A 100%);
-    color: #ffffff; font-weight: 700; font-size: 16px; font-family: inherit;
-    padding: 17px 20px; border-radius: 50px; box-shadow: 0 8px 20px rgba(195,10,33,0.32);
-    margin-top: 6px;
-  }
-  .primary-btn:active { transform: translateY(1px); }
-  .helper-text { text-align: center; font-size: 11.5px; color: #999999; margin-top: 12px; }
+  input[type="range"] { width:100%; height:6px; border-radius:4px; background:#eee; accent-color:var(--red); -webkit-appearance:none; appearance:none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:var(--red); cursor:pointer; box-shadow:0 2px 8px rgba(195,10,33,.45); border:3px solid #fff; }
+  input[type="range"]::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--red); cursor:pointer; border:3px solid #fff; }
+  .range-labels { display:flex; justify-content:space-between; font-size:11px; color:#aaa; margin-top:6px; }
 
-  /* Results screen */
-  .results-hero { text-align: center; padding: 6px 40px 4px 40px; }
-  .results-hero .save-num { font-size: 40px; font-weight: 700; color: #C30A21; line-height: 1; margin: 6px 0; }
-  .results-hero .save-label { font-size: 13.5px; color: #666666; }
+  .teaser { background:var(--red-soft); border-radius:12px; padding:14px 18px; text-align:center; margin:2px 0 20px; font-size:13px; color:#444; }
+  .teaser b { color:var(--red); font-size:19px; display:block; margin-top:2px; }
 
-  .stat-row { display: flex; gap: 14px; padding: 20px 40px 4px 40px; flex-wrap: wrap; }
-  .stat-box { flex: 1; min-width: 140px; background: #f7f7f7; border-radius: 8px; padding: 16px 14px; text-align: center; }
-  .stat-box .n { font-size: 19px; font-weight: 700; color: #14110F; }
-  .stat-box .l { font-size: 10.5px; color: #888888; margin-top: 4px; line-height: 1.35; }
+  .primary-btn { display:block; width:100%; text-align:center; border:none; cursor:pointer; text-decoration:none;
+    background:linear-gradient(180deg,#E43A50 0%,#B8081D 55%,var(--red-dark) 100%); color:#fff; font-weight:700; font-size:16px; font-family:inherit;
+    padding:17px 20px; border-radius:50px; box-shadow:0 8px 20px rgba(195,10,33,.32); transition:transform .15s, box-shadow .15s; }
+  .primary-btn:hover { transform:translateY(-1px); box-shadow:0 10px 24px rgba(195,10,33,.4); }
+  .helper-text { text-align:center; font-size:11.5px; color:#999; margin-top:12px; }
 
-  .diagnosis { margin: 22px 40px 6px 40px; }
-  .diagnosis-title { font-size: 13px; font-weight: 700; color: #C30A21; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
-  .diag-item { display: flex; gap: 12px; margin-bottom: 14px; }
-  .diag-icon {
-    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: #fbe9ec;
-    color: #C30A21; font-weight: 700; font-size: 13px; text-align: center; line-height: 24px;
-  }
-  .diag-text { font-size: 13px; color: #444444; line-height: 1.55; padding-top: 2px; }
-  .diag-text b { color: #14110F; }
+  /* results */
+  #resultsScreen { display:none; }
+  .results-hero { text-align:center; padding:22px 36px 4px; }
+  .save-label { font-size:13.5px; color:var(--muted); }
+  .save-num { font-size:46px; font-weight:700; color:var(--red); line-height:1.05; margin:6px 0; letter-spacing:-1px; }
 
-  .solution-box { margin: 24px 40px 6px 40px; background: #14110F; border-radius: 10px; padding: 24px 26px; }
-  .solution-title { color: #ffffff; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-  .solution-title span { color: #E85A6E; }
-  .solution-text { color: #c9c5c3; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
-  .solution-list { list-style: none; padding: 0; margin: 0; }
-  .solution-list li { color: #ffffff; font-size: 13px; line-height: 1.7; padding-left: 22px; position: relative; margin-bottom: 6px; }
-  .solution-list li:before { content: "✓"; position: absolute; left: 0; color: #E85A6E; font-weight: 700; }
+  .bars { margin:20px 36px 6px; background:#f8f8f8; border-radius:12px; padding:18px 20px; }
+  .bar-row { margin-bottom:14px; }
+  .bar-row:last-child { margin-bottom:0; }
+  .bar-head { display:flex; justify-content:space-between; font-size:12.5px; font-weight:600; margin-bottom:6px; }
+  .bar-track { height:14px; background:#e9e9e9; border-radius:8px; overflow:hidden; }
+  .bar-fill { height:100%; width:0; border-radius:8px; transition:width .9s cubic-bezier(.2,.8,.2,1); }
+  .bar-fill.now { background:#9b9b9b; }
+  .bar-fill.rt { background:linear-gradient(90deg,#E43A50,var(--red-dark)); }
 
-  .cta-section { text-align: center; padding: 28px 40px 6px 40px; }
-  .cta-note { font-size: 12px; color: #888888; margin-top: 14px; }
+  .stat-row { display:flex; gap:12px; padding:14px 36px 4px; }
+  .stat-box { flex:1; min-width:0; background:#f7f7f7; border-radius:10px; padding:14px 8px; text-align:center; }
+  .stat-box .n { font-size:18px; font-weight:700; }
+  .stat-box .l { font-size:10.5px; color:#888; margin-top:4px; line-height:1.35; }
 
-  .back-link {
-    display: block; text-align: center; font-size: 12.5px; color: #999999; text-decoration: none;
-    padding: 18px 40px 4px 40px; cursor: pointer;
-  }
-  .back-link:hover { color: #C30A21; }
+  .diagnosis { margin:22px 36px 6px; }
+  .diagnosis-title { font-size:12.5px; font-weight:700; color:var(--red); text-transform:uppercase; letter-spacing:.6px; margin-bottom:12px; }
+  .diag-item { display:flex; gap:12px; margin-bottom:14px; }
+  .diag-icon { flex-shrink:0; width:24px; height:24px; border-radius:50%; background:var(--red-soft); color:var(--red); font-weight:700; font-size:13px; text-align:center; line-height:24px; }
+  .diag-text { font-size:13px; color:#444; line-height:1.55; padding-top:2px; }
+  .diag-text b { color:var(--ink); }
 
-  .bookmark-note {
-    text-align: center; font-size: 11.5px; color: #aaaaaa; padding: 14px 40px 4px 40px; line-height: 1.5;
-  }
+  .solution-box { margin:24px 36px 6px; background:var(--ink); border-radius:14px; padding:24px 24px; }
+  .solution-title { color:#fff; font-size:16px; font-weight:700; margin-bottom:10px; }
+  .solution-title span { color:#FF6B7E; }
+  .solution-text { color:#cbc6c3; font-size:13px; line-height:1.6; margin-bottom:14px; }
+  .solution-list { list-style:none; padding:0; margin:0; }
+  .solution-list li { color:#fff; font-size:13px; line-height:1.6; padding-left:24px; position:relative; margin-bottom:8px; }
+  .solution-list li:before { content:"\2713"; position:absolute; left:0; top:1px; width:17px; height:17px; border-radius:50%; background:var(--red); color:#fff; font-size:10px; font-weight:700; text-align:center; line-height:17px; }
 
-  .footer { text-align: center; padding: 22px 40px 32px 40px; border-top: 1px solid #eeeeee; margin-top: 14px; }
-  .footer img { height: 42px; margin-bottom: 10px; }
-  .footer-text { font-size: 10.5px; color: #999999; }
+  .cta-section { text-align:center; padding:26px 36px 4px; }
+  .cta-section .primary-btn { display:inline-block; width:auto; padding-left:34px; padding-right:34px; }
+  .cta-note { font-size:12px; color:#888; margin-top:14px; }
+  .back-link { display:block; text-align:center; font-size:12.5px; color:#999; padding:18px 36px 2px; cursor:pointer; background:none; border:none; width:100%; font-family:inherit; }
+  .back-link:hover { color:var(--red); }
+  .bookmark-note { text-align:center; font-size:11.5px; color:#aaa; padding:10px 36px 4px; line-height:1.5; }
 
-  #resultsScreen { display: none; }
+  .footer { text-align:center; padding:22px 36px 30px; border-top:1px solid var(--line); margin-top:16px; }
+  .footer img { height:42px; margin-bottom:10px; }
+  .footer-text { font-size:10.5px; color:#999; line-height:1.5; }
 
-  @media (max-width: 480px) {
-    .header, .form-section, .cta-section, .footer, .back-link, .bookmark-note { padding-left: 22px; padding-right: 22px; }
-    .diagnosis, .solution-box, .stat-row { margin-left: 22px; margin-right: 22px; padding-left: 20px; padding-right: 20px; }
-    .stat-row { padding-left: 22px; padding-right: 22px; }
+  @media (max-width:480px) {
+    .hero, .form-section, .results-hero, .cta-section, .footer, .back-link, .bookmark-note { padding-left:20px; padding-right:20px; }
+    .bars, .diagnosis, .solution-box { margin-left:20px; margin-right:20px; }
+    .stat-row { padding-left:20px; padding-right:20px; gap:8px; }
+    .hero h1 { font-size:22px; }
+    .save-num { font-size:40px; }
   }
 </style>
 </head>
 <body>
-
 <div class="wrap">
   <div class="card">
-    <div class="top-bar"></div>
+
+    <div class="hero">
+      <div class="new-pill">New: employer name now readable</div>
+      <h1>How much is verification <span>actually</span> costing you?</h1>
+      <p>Move the sliders to match your team. No email, no signup, just your number.</p>
+    </div>
 
     <div class="progress">
       <div class="progress-dot active" id="dot1"></div>
@@ -131,52 +129,70 @@
       <span class="progress-label" id="progressLabel">Step 1 of 2</span>
     </div>
 
-    <!-- ============ SCREEN 1: CALCULATOR ============ -->
+    <!-- SCREEN 1 -->
     <div id="calcScreen">
-      <div class="header">
-        <div class="eyebrow">Free Tool &middot; Takes 10 Seconds</div>
-        <h1>How much is verification <span>actually</span> costing you?</h1>
-        <div class="subtext">Drag the sliders to match your team. No email, no signup, just your number.</div>
-      </div>
-
       <div class="form-section">
         <div class="field">
-          <label>Verifications per month: <span class="val" id="volumeVal">150</span></label>
-          <input type="range" id="volume" min="10" max="1000" value="150" step="10" oninput="syncVolume()">
+          <div class="lbl"><label for="volume" style="margin:0">Verifications per month</label><span class="val" id="volumeVal">150</span></div>
+          <input type="range" id="volume" min="10" max="1000" value="150" step="10" oninput="onVolume(this.value)">
           <div class="range-labels"><span>10</span><span>1,000+</span></div>
-        </div>
-
-        <div class="field">
-          <label>What you pay per verification</label>
-          <div class="input-wrap">
-            <span class="prefix">$</span>
-            <input type="number" id="rate" value="35" min="0" step="0.5">
+          <div class="chips" id="volChips">
+            <button class="chip" data-v="50">50</button>
+            <button class="chip on" data-v="150">150</button>
+            <button class="chip" data-v="300">300</button>
+            <button class="chip" data-v="500">500</button>
+            <button class="chip" data-v="1000">1,000</button>
           </div>
         </div>
 
         <div class="field">
-          <label>Current average turnaround: <span class="val" id="turnaroundVal">3 days</span></label>
+          <label for="rate">What you pay per verification today</label>
+          <div class="input-wrap"><span class="prefix">$</span><input type="number" id="rate" value="35" min="0" step="0.5" inputmode="decimal" oninput="updateTeaser()"></div>
+          <div class="hint">Use your all-in average from your current provider.</div>
+        </div>
+
+        <div class="field" id="yearsField" style="display:none">
+          <div class="lbl"><label for="years" style="margin:0">Years of employment history per verification</label><span class="val" id="yearsVal">3</span></div>
+          <input type="range" id="years" min="1" max="7" value="3" step="1" oninput="onYears(this.value)">
+          <div class="range-labels"><span>1 year</span><span>7 years</span></div>
+        </div>
+
+        <div class="field">
+          <div class="lbl"><label for="turnaround" style="margin:0">Current average turnaround</label><span class="val" id="turnaroundVal">3 days</span></div>
           <input type="range" id="turnaround" min="0" max="10" value="3" step="1" oninput="syncTurnaround()">
           <div class="range-labels"><span>Same day</span><span>10+ days</span></div>
         </div>
 
-        <button class="primary-btn" onclick="showResults()">See My Results &rarr;</button>
+        <div class="teaser">Based on what you entered, you could save about<b id="teaserNum">$0</b></div>
+
+        <button class="primary-btn" onclick="showResults()">See My Full Results &rarr;</button>
         <div class="helper-text">Instant, personalized, no obligation.</div>
       </div>
     </div>
 
-    <!-- ============ SCREEN 2: RESULTS + DIAGNOSIS ============ -->
+    <!-- SCREEN 2 -->
     <div id="resultsScreen">
       <div class="results-hero">
         <div class="save-label">You could be saving roughly</div>
-        <div class="save-num" id="annualSavings">$47,250</div>
+        <div class="save-num" id="annualSavings">$0</div>
         <div class="save-label">per year on verification costs</div>
       </div>
 
+      <div class="bars">
+        <div class="bar-row">
+          <div class="bar-head"><span>Today</span><span id="barNowAmt">$0 / mo</span></div>
+          <div class="bar-track"><div class="bar-fill now" id="barNow"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-head"><span>With Red Trends IVES</span><span id="barRtAmt">$0 / mo</span></div>
+          <div class="bar-track"><div class="bar-fill rt" id="barRt"></div></div>
+        </div>
+      </div>
+
       <div class="stat-row">
-        <div class="stat-box"><div class="n" id="currentCost">$5,250</div><div class="l">Your current monthly cost</div></div>
-        <div class="stat-box"><div class="n" id="newCost">$1,313</div><div class="l">Estimated cost with Red Trends</div></div>
-        <div class="stat-box"><div class="n" id="monthlySavings">$3,937</div><div class="l">Monthly savings</div></div>
+        <div class="stat-box"><div class="n" id="currentCost">$0</div><div class="l">Current monthly cost</div></div>
+        <div class="stat-box"><div class="n" id="newCost">$0</div><div class="l">Estimated with Red Trends</div></div>
+        <div class="stat-box"><div class="n" id="fiveYear">$0</div><div class="l">Saved over 5 years</div></div>
       </div>
 
       <div class="diagnosis">
@@ -186,108 +202,146 @@
 
       <div class="solution-box">
         <div class="solution-title">How <span>Red Trends</span> Closes That Gap</div>
-        <div class="solution-text">IVES-integrated verification pulls directly from the IRS, W-2s, 1099s, and 1040s, so there's nothing to scrape, guess, or wait on.</div>
+        <div class="solution-text">IVES now returns a readable employer name straight from IRS records, so you can verify who someone worked for without scraping, guessing, or waiting on a callback.</div>
         <ul class="solution-list">
-          <li>Direct IRS data, nothing scraped or inferred</li>
+          <li>Direct IRS employment data, nothing scraped or inferred</li>
+          <li>Employer name now readable on the report</li>
           <li>Turnaround measured in hours, not days</li>
           <li>Transparent, consent-based, audit-ready by design</li>
         </ul>
       </div>
 
       <div class="cta-section">
-        <a class="primary-btn" style="text-decoration:none; display:inline-block; width:auto; padding-left:34px; padding-right:34px;" href="https://meghan-redtrends.github.io/Meghan-Discovery-Call/" target="_blank">Book 15 Minutes To Confirm This &rarr;</a>
+        <a class="primary-btn" href="https://meghan-redtrends.github.io/Meghan-Discovery-Call/" target="_blank" rel="noopener">Book 15 Minutes To Confirm This &rarr;</a>
         <div class="cta-note">No pitch, just a real comparison against what you're running now.</div>
       </div>
 
-      <a class="back-link" onclick="showCalc()">&larr; Run different numbers</a>
-      <div class="bookmark-note">Bookmark this page, come back and rerun your numbers anytime your volume or provider changes.</div>
+      <button class="back-link" onclick="showCalc()">&larr; Run different numbers</button>
+      <div class="bookmark-note">Bookmark this page and rerun your numbers anytime your volume or provider changes.</div>
     </div>
 
     <div class="footer">
-      <img src="https://assets.cdn.filesafe.space/L0ucUv19hqLW90cXKxFb/media/6a501d333a44372f4564a29a.png" alt="Red Trends Technologies">
-      <div class="footer-text">Estimate based on ~75% average savings vs. legacy providers. Final pricing confirmed on your call.</div>
+      <img src="https://assets.cdn.filesafe.space/L0ucUv19hqLW90cXKxFb/media/6a501d333a44372f4564a29a.png" alt="Red Trends Technologies" onerror="this.style.display='none'">
+      <div class="footer-text" id="footerText"></div>
     </div>
   </div>
 </div>
 
 <script>
-  function syncVolume() {
-    document.getElementById('volumeVal').textContent = document.getElementById('volume').value;
-  }
-  function syncTurnaround() {
-    var v = document.getElementById('turnaround').value;
-    document.getElementById('turnaroundVal').textContent = (v == 0 ? 'Same day' : v + (v == 1 ? ' day' : ' days'));
+  /* ---- EASY SETTINGS (edit these, nothing else needs to change) ----
+     mode 'estimate'  = assumes the savings rate below vs. the visitor's current price (original behavior)
+     mode 'published' = uses exact per-verification pricing: firstYear + (years - 1) * additionalYear
+     Keep 'estimate' until Meg approves showing exact pricing publicly. */
+  var PRICING = { mode: 'estimate', savingsRate: 0.75, firstYear: 15, additionalYear: 4 };
+
+  var $ = function (id) { return document.getElementById(id); };
+  function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  function calc() {
+    var volume = parseFloat($('volume').value) || 0;
+    var rate = parseFloat($('rate').value) || 0;
+    var years = parseFloat($('years').value) || 1;
+    var now = volume * rate;
+    var rt;
+    if (PRICING.mode === 'published') {
+      rt = volume * (PRICING.firstYear + (years - 1) * PRICING.additionalYear);
+    } else {
+      rt = now * (1 - PRICING.savingsRate);
+    }
+    var monthly = Math.max(now - rt, 0);
+    return { volume: volume, rate: rate, now: now, rt: rt, monthly: monthly, annual: monthly * 12 };
   }
 
-  function formatCurrency(num) {
-    return '$' + Math.round(num).toLocaleString('en-US');
+  function onVolume(v) {
+    $('volumeVal').textContent = Number(v).toLocaleString('en-US');
+    var chips = document.querySelectorAll('#volChips .chip');
+    for (var i = 0; i < chips.length; i++) chips[i].classList.toggle('on', chips[i].getAttribute('data-v') === String(v));
+    updateTeaser();
+  }
+  function onYears(v) { $('yearsVal').textContent = v; updateTeaser(); }
+  function syncTurnaround() {
+    var v = $('turnaround').value;
+    $('turnaroundVal').textContent = (v == 0 ? 'Same day' : v + (v == 1 ? ' day' : ' days'));
+  }
+  function updateTeaser() { $('teaserNum').textContent = money(calc().annual) + ' a year'; }
+
+  var chipEls = document.querySelectorAll('#volChips .chip');
+  for (var c = 0; c < chipEls.length; c++) {
+    chipEls[c].addEventListener('click', function () {
+      var v = this.getAttribute('data-v'); $('volume').value = v; onVolume(v);
+    });
+  }
+
+  function countUp(el, target) {
+    var start = null, dur = 900;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = money(target * e);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   }
 
   function buildDiagnosis(volume, rate, turnaround) {
     var items = [];
+    if (rate >= 28) items.push("Your <b>per-verification rate looks like legacy pricing</b>. Most modern, IRS-integrated setups run well below this.");
+    else if (rate >= 18) items.push("Your rate is <b>in the middle of the pack</b>, and there's likely still room to cut it meaningfully.");
+    else items.push("Your rate is already fairly competitive. The bigger opportunity may be speed and risk, not just price.");
 
-    if (rate >= 28) {
-      items.push("Your <b>per-verification rate looks like legacy pricing</b>, most modern, IRS-integrated setups run well below this.");
-    } else if (rate >= 18) {
-      items.push("Your rate is <b>in the middle of the pack</b>, there's likely still room to cut this down meaningfully.");
-    } else {
-      items.push("Your rate is already fairly competitive, the bigger opportunity may be speed and risk, not just price.");
-    }
+    if (turnaround >= 3) items.push("A turnaround of <b>" + turnaround + "+ days</b> usually means manual follow-up or third-party delays, both of which disappear with a direct data pull.");
+    else items.push("Your turnaround is already fast. It's worth confirming it isn't coming from a source that carries scraping or consent risk.");
 
-    if (turnaround >= 3) {
-      items.push("A turnaround of <b>" + turnaround + "+ days</b> usually means manual follow-up or third-party delays, both of which disappear with a direct data pull.");
-    } else {
-      items.push("Your turnaround is already fast, worth confirming it's not coming from a source that carries scraping or consent risk.");
-    }
-
-    if (volume >= 300) {
-      items.push("At <b>" + volume + "+ verifications a month</b>, even a small per-verification gap compounds into real budget fast.");
-    } else {
-      items.push("At your current volume, this gap is manageable now, but it scales with you if nothing changes.");
-    }
-
+    if (volume >= 300) items.push("At <b>" + volume.toLocaleString('en-US') + " verifications a month</b>, even a small per-verification gap compounds into real budget fast.");
+    else items.push("At your current volume the gap is manageable, but it scales with you if nothing changes.");
     return items;
   }
 
   function showResults() {
-    var volume = parseFloat(document.getElementById('volume').value) || 0;
-    var rate = parseFloat(document.getElementById('rate').value) || 0;
-    var turnaround = parseFloat(document.getElementById('turnaround').value) || 0;
+    var r = calc();
+    var turnaround = parseFloat($('turnaround').value) || 0;
+    $('currentCost').textContent = money(r.now);
+    $('newCost').textContent = money(r.rt);
+    $('fiveYear').textContent = money(r.annual * 5);
+    $('barNowAmt').textContent = money(r.now) + ' / mo';
+    $('barRtAmt').textContent = money(r.rt) + ' / mo';
 
-    var currentMonthly = volume * rate;
-    var newMonthly = currentMonthly * 0.25;
-    var monthlySavings = currentMonthly - newMonthly;
-    var annualSavings = monthlySavings * 12;
+    var html = '', items = buildDiagnosis(r.volume, r.rate, turnaround);
+    for (var i = 0; i < items.length; i++) html += '<div class="diag-item"><div class="diag-icon">' + (i + 1) + '</div><div class="diag-text">' + items[i] + '</div></div>';
+    $('diagList').innerHTML = html;
 
-    document.getElementById('currentCost').textContent = formatCurrency(currentMonthly);
-    document.getElementById('newCost').textContent = formatCurrency(newMonthly);
-    document.getElementById('monthlySavings').textContent = formatCurrency(monthlySavings);
-    document.getElementById('annualSavings').textContent = formatCurrency(annualSavings);
-
-    var diagItems = buildDiagnosis(volume, rate, turnaround);
-    var diagHtml = '';
-    for (var i = 0; i < diagItems.length; i++) {
-      diagHtml += '<div class="diag-item"><div class="diag-icon">' + (i + 1) + '</div><div class="diag-text">' + diagItems[i] + '</div></div>';
-    }
-    document.getElementById('diagList').innerHTML = diagHtml;
-
-    document.getElementById('calcScreen').style.display = 'none';
-    document.getElementById('resultsScreen').style.display = 'block';
-    document.getElementById('dot1').classList.remove('active');
-    document.getElementById('dot2').classList.add('active');
-    document.getElementById('progressLabel').textContent = 'Step 2 of 2';
+    $('calcScreen').style.display = 'none';
+    $('resultsScreen').style.display = 'block';
+    $('dot1').classList.remove('active'); $('dot2').classList.add('active');
+    $('progressLabel').textContent = 'Step 2 of 2';
     window.scrollTo(0, 0);
+
+    countUp($('annualSavings'), r.annual);
+    $('barNow').style.width = '0'; $('barRt').style.width = '0';
+    setTimeout(function () {
+      var max = Math.max(r.now, 1);
+      $('barNow').style.width = '100%';
+      $('barRt').style.width = Math.max((r.rt / max) * 100, 3) + '%';
+    }, 120);
   }
 
   function showCalc() {
-    document.getElementById('resultsScreen').style.display = 'none';
-    document.getElementById('calcScreen').style.display = 'block';
-    document.getElementById('dot2').classList.remove('active');
-    document.getElementById('dot1').classList.add('active');
-    document.getElementById('progressLabel').textContent = 'Step 1 of 2';
+    $('resultsScreen').style.display = 'none';
+    $('calcScreen').style.display = 'block';
+    $('dot2').classList.remove('active'); $('dot1').classList.add('active');
+    $('progressLabel').textContent = 'Step 1 of 2';
     window.scrollTo(0, 0);
   }
-</script>
 
+  (function init() {
+    if (PRICING.mode === 'published') {
+      $('yearsField').style.display = 'block';
+      $('footerText').textContent = 'Estimate based on current Red Trends IVES pricing. Final pricing confirmed on your call.';
+    } else {
+      $('footerText').textContent = 'Estimate based on ~' + Math.round(PRICING.savingsRate * 100) + '% average savings vs. legacy providers. Final pricing confirmed on your call.';
+    }
+    updateTeaser();
+  })();
+</script>
 </body>
 </html>
